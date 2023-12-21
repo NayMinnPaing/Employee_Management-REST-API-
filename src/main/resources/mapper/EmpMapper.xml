@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.restTrainning.restfulltrainning.repository.EmployeeRepository">
+		<insert id="insertData" parameterType="EmployeeModel">
+			INSERT INTO employee ( name,  age, salary) VALUES (#{empName}, #{empAge}, #{empSalary} );
+		</insert>
+		
+		<resultMap type="EmployeeModel" id="EmpResultMap">
+			<id column="id" property="empId"/>
+			<result column="name" property="empName"/>
+			<result column="age" property="empAge"/>
+			<result column="salary" property="empSalary"/>
+		</resultMap>
+		
+		<select id="selectAllData" resultMap="EmpResultMap">
+			SELECT id, name,  age, salary FROM employee;
+		</select>
+			
+		<select id="selectByName" resultMap="EmpResultMap" parameterType="String">
+			SELECT  id,  name,  age, salary FROM employee WHERE  name=#{empName};
+		</select>	
+		<select id="selectById" resultMap="EmpResultMap" parameterType="int">
+			SELECT  id,  name,  age, salary FROM employee WHERE  id=#{empId};
+		</select>
+		<update id="updateData" parameterType="EmployeeModel">
+			UPDATE employee SET  name=#{empName},  age=#{empAge}, salary=#{empSalary} WHERE  id=#{empId};
+		</update>
+		<delete id="deleteData" parameterType="int">
+			DELETE FROM employee WHERE  id=#{empId};
+		</delete>
+		
+</mapper>
